@@ -59,7 +59,7 @@ void loop() {
         if (incomingByte == 'Q' || incomingByte == 'q') {
      //Para tras 
      Motor1Motor.run(BACKWARD);
-     Motor2Motor.run(BACKWARD);;
+     Motor2Motor.run(BACKWARD);
       delay(250); 
     }
     else {
