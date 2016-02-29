@@ -8,13 +8,17 @@ AF_DCMotor Motor1Motor(1, MOTOR12_64KHZ);
 AF_DCMotor Motor2Motor(2, MOTOR12_64KHZ);
 
 char val; // Data received from serial port
-const int ledPin = 13; // the pin that the LED is attached to
+const int led = 2; // the pin that the LED is attached to
 int incomingByte;      // a variable to read incoming serial data into
+int photocellPin = 5;     // the cell and 10K pulldown are connected to a0
+int photocellReading;     // the analog reading from the sensor divider
+
+
 
 void setup() {
   Serial.begin(9600);           // set up Serial library at 9600 bps
   Serial.println("Hugreen Pandora v1 - DC Motor test!");
-
+  pinMode(led, OUTPUT); 
   //AFMS.begin();  // create with the default frequency 1.6KHz
   //AFMS.begin(1000);  // OR with a different frequency, say 1KHz
 
@@ -34,11 +38,13 @@ void loop() {
     // if it's a capital H (ASCII 72), turn on the LED:
     if (incomingByte == 'W' || incomingByte == 'w') {
      //Para tras 
+     Serial.println("Frente");
      Motor1Motor.run(BACKWARD);
      Motor2Motor.run(BACKWARD);;
       delay(250); 
     }
                if (incomingByte == 'S' || incomingByte == 's') {
+     Serial.println("Marcha reh");
      Motor1Motor.run(FORWARD);
      Motor2Motor.run(FORWARD);
       delay(250); 
@@ -54,6 +60,20 @@ void loop() {
      Motor1Motor.run(FORWARD);
      Motor2Motor.run(BACKWARD);
       delay(250); 
+    }
+     
+           if (incomingByte == 'L' || incomingByte == 'l') {
+     Serial.println("Lazer jidi");
+     digitalWrite(led, HIGH);
+      delay(500); 
+     digitalWrite(led, LOW);
+
+    }
+     if (incomingByte == 'B' || incomingByte == 'b') {
+     Serial.print("Analog reading = ");
+     Serial.println(photocellReading); 
+     delay(500); 
+    
     }
     
         if (incomingByte == 'Q' || incomingByte == 'q') {
