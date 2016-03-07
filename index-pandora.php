@@ -1,12 +1,14 @@
 <!-- 
-sudo chmod a+rw /dev/ttyUSB0
+ conteudo deste script (hugreen.solar) esta sob licenca Creative Commons 
+
+sudo chmod a+rw /dev/ttyACM0
 "r+b" seria permissão para leitura e escrita na porta.
 
 
 
 $port=fopen($portAdress,"r+b");
 
-O conteudo deste script (hugreen.solar) esta sob licenca Creative Commons  -->
+ -->
 
 <html>
     <head>
@@ -26,17 +28,25 @@ Proteus Robot Hugreen.Solar
 $address2 = $_SERVER['SERVER_ADDR'];
 $address =  str_replace(':8081', '', $_SERVER['HTTP_HOST']);
 
-if( $address == '192.168.1.70') {
+
+if( $address == '192.168.1.70:8888') {
   $domain = $_SERVER['SERVER_ADDR'];
+
 } 
 else {
-$domain = str_replace(':8081', '', $_SERVER['HTTP_HOST']);  
+$domain = str_replace(':8888', '', $_SERVER['HTTP_HOST']);  
 }  
 
 ?>
 
+ <iframe frameborder="0" marginheight="0" marginwidth="0" scrolling="no"   src = "http://<?php echo "$domain"?>:8081" width="640" height="480" ></iframe> 
 
-<iframe frameborder="0" marginheight="0" marginwidth="0" scrolling="no"   src = "http://panfilo.noip.us:8081" width="320" height="240" ></iframe>
+<!--
+
+ <iframe frameborder="0" marginheight="0" marginwidth="0" scrolling="no"   src = "http://<?php echo "$domain"?>:8081" width="320" height="240" ></iframe> 
+ <iframe frameborder="0" marginheight="0" marginwidth="0" scrolling="no"   src = "http://panfilo.noip.us:8081" width="320" height="240" ></iframe> 
+-->
+
 <br><br>
 
 <?php
@@ -83,11 +93,11 @@ echo fgets($port);
       }
       if ($_POST['situacao']=="direita")
       {
-      fwrite($port, "a");
+      fwrite($port, "d");
       }
       if ($_POST['situacao']=="esquerda")
       {
-      fwrite($port, "d");
+      fwrite($port, "a");
       }
       if ($_POST['situacao']=="laser")
       {
@@ -113,22 +123,26 @@ fclose($port);
 <form method="POST" action="index.php">
 
         <input type="hidden" value="frente" name="situacao">
-        <input type="submit" value="Frente" name="frente" style="border-color:black; border-style: solid; border-width: 1; background-color: green; color: white">
+        <input type="submit" value="Frente" name="frente" style="border-color:black; border-style: solid;border-width: 5; background-color: green; color: white;height: 45px; font-size:35px">
 </form>
 
 <form method="POST" action="index.php">
         <input type="hidden" value="esquerda" name="situacao">
-        <input type="submit" value="Esquerda" name="esquerda" style="border-color:black; border-style: solid; border-width: 1; background-color: green; color: white"></form>
+        <input type="submit" value="Esquerda" name="esquerda" style="border-color:black; border-style: solid;border-width: 5; background-color: green; color: white;height: 45px; font-size:35px">
+
+</form>
 
 <form method="POST" action="index.php">
 
         <input type="hidden" value="direita" name="situacao">
-        <input type="submit" value="Direita" name="direita" style="border-color:black; border-style: solid; border-width: 1; background-color: green; color: white">
+        <input type="submit" value="Direita" name="direita" style="border-color:black; border-style: solid; border-width: 5; background-color: green; color: white;height: 45px; font-size:35px">
         </form>
+
+
 
 <form method="POST" action="index.php">
         <input type="hidden" value="reh" name="situacao">
-        <input type="submit" value="Reh" name="reh" style="border-color:black; border-style: solid; border-width: 1; background-color: green; color: white">
+        <input type="submit" value="Reh" name="reh" style="border-color:black; border-style: solid;border-width: 5; background-color: green; color: white;height: 45px; font-size:35px">
 </form>
 </td>
 </tr>
